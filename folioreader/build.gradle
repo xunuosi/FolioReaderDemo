@@ -1,0 +1,90 @@
+apply plugin: 'com.android.library'
+apply from: '../config/quality/quality.gradle'
+
+ext {
+  bintrayRepo = 'maven'
+  bintrayName = 'folioreader'
+
+  publishedGroupId = 'com.folioreader'
+  libraryName = 'FolioReader'
+  artifact = 'folioreader'
+
+  libraryDescription = 'An epub reader for Android'
+
+  siteUrl = 'https://github.com/FolioReader/FolioReader-Android'
+  gitUrl = 'https://github.com/FolioReader/FolioReader-Android.git'
+
+  libraryVersion = '0.2.5'
+
+  developerId = 'mobisystech'
+  developerName = 'Folio Reader'
+  developerEmail = 'mahavir@codetoart.com'
+
+  licenseName = 'FreeBSD License'
+  licenseUrl = 'https://en.wikipedia.org/wiki/FreeBSD_Documentation_License#License'
+  allLicenses = ["FreeBSD"]
+}
+
+android {
+    useLibrary 'org.apache.http.legacy'
+    compileSdkVersion Integer.parseInt(project.ANDROID_COMPILE_SDK_VERSION)
+    buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
+
+    defaultConfig {
+        versionCode Integer.parseInt(project.VERSION_CODE)
+        versionName project.VERSION_NAME
+        minSdkVersion Integer.parseInt(project.ANDROID_MIN_SDK)
+        targetSdkVersion Integer.parseInt(project.ANDROID_TARGET_SDK_VERSION)
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src/main/java']
+            res.srcDirs = ['res']
+        }
+        test {
+            java.srcDirs = ['src/test/java']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    packagingOptions {
+        exclude 'META-INF/ASL2.0'
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    checkstyle {
+        ignoreFailures = true
+    }
+    buildToolsVersion '25.0.2'
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':webViewMarker')
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:recyclerview-v7:25.0.1'
+    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.daimajia.swipelayout:library:1.2.0@aar'
+    compile 'com.squareup:otto:1.3.8'
+}
